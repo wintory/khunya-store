@@ -46,12 +46,12 @@ export default class Form extends Component {
 
     delOrder = (key) => {
 
-
         this.setState({
-            order: [this.state.order.filter(e => { if (this.state.order.key !== key) { return this.state.order } })]
+            order: this.state.order.filter(e => { if (e.id !== key) { return e } })
         })
-        console.log(this.state.order);
     }
+
+
 
     render() {
 
@@ -59,11 +59,11 @@ export default class Form extends Component {
             <div>
                 <div className="form-check form-inline col-md-12">
                     <select className="form-control col-md-4 offset-1" id="salad" onChange={e => { this.getVetg(e.target.value) }} >
-                        <option value="true">เอาผัก</option>
+                        <option selected value="true">เอาผัก</option>
                         <option value="false">ไม่เอาผัก</option>
                     </select>
                     <select className="form-control col-md-4 offset-1" id="salad" onChange={e => { this.getOption(e.target.value) }} >
-                        <option value="seafood">ซีฟู้ด</option>
+                        <option selected value="seafood">ซีฟู้ด</option>
                         <option value="salad">สลัด</option>
                         <option value="oil" >น้ำมันงา</option>
                     </select>
