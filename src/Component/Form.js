@@ -26,12 +26,11 @@ export default class Form extends Component {
 
     addOrder = () => {
         this.setState({
-            order: [...this.state.order, { id: this.state.count, vetg: this.state.vetg, option: this.state.option, time: new Date().toLocaleString() }],
+            order: [...this.state.order, { id: this.state.count, vetg: this.state.vetg, option: this.state.option, status: 'pending', time: new Date().toLocaleString() }],
             vetg: 'true',
             option: 'seafood',
             count: this.state.count + 1
         })
-        console.log(this.state.order);
 
     }
 
