@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../CSS/App.css'
+import fire from '../firebase';
 
 export default class Form extends Component {
 
@@ -25,7 +26,7 @@ export default class Form extends Component {
 
     addOrder = () => {
         this.setState({
-            order: [...this.state.order, { id: this.state.count, vetg: this.state.vetg, option: this.state.option }],
+            order: [...this.state.order, { id: this.state.count, vetg: this.state.vetg, option: this.state.option, time: new Date().toLocaleString() }],
             vetg: 'true',
             option: 'seafood',
             count: this.state.count + 1
@@ -45,11 +46,27 @@ export default class Form extends Component {
     }
 
     delOrder = (key) => {
-
         this.setState({
             order: this.state.order.filter(e => { if (e.id !== key) { return e } })
         })
     }
+
+    submitOrder = (e) => {
+        if (e !== null || e !== []) {
+            fire.database().ref('order').push(e);
+            console.log('add success');
+            this.setState({
+                vetg: 'true',
+                option: 'seafood',
+                order: [],
+                count: 0
+            })
+        } else {
+            alert('please input order')
+        }
+
+    }
+
 
 
 
@@ -59,11 +76,11 @@ export default class Form extends Component {
             <div>
                 <div className="form-check form-inline col-md-12">
                     <select className="form-control col-md-4 offset-1" id="salad" onChange={e => { this.getVetg(e.target.value) }} >
-                        <option selected value="true">เอาผัก</option>
+                        <option defaultValue value="true">เอาผัก</option>
                         <option value="false">ไม่เอาผัก</option>
                     </select>
                     <select className="form-control col-md-4 offset-1" id="salad" onChange={e => { this.getOption(e.target.value) }} >
-                        <option selected value="seafood">ซีฟู้ด</option>
+                        <option defaultValue value="seafood">ซีฟู้ด</option>
                         <option value="salad">สลัด</option>
                         <option value="oil" >น้ำมันงา</option>
                     </select>
@@ -75,14 +92,15 @@ export default class Form extends Component {
 
                         {this.state.order.map((e) => {
                             return (
-                                <li key={e.id} className="list-group-item">{e.vetg == 'true' ? 'เอาผัก' : 'ไม่เอาผัก'} {e.option} <button className="btn btn-light red" onClick={() => this.delOrder(e.id)}>x</button></li>
+                                <li key={e.id} className="list-group-item">{e.vetg === 'true' ? 'เอาผัก' : 'ไม่เอาผัก'} {e.option} <button className="btn btn-light red" onClick={() => this.delOrder(e.id)}>x</button></li>
                             )
                         })}
                     </ul>
                 </div>
+
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => { this.closeModal() }}>Close</button>
-                    <button type="button" className="btn btn-primary">ส่งorder</button>
+                    <button type="button" className="btn btn-primary" onClick={() => { this.submitOrder(this.state.order) }}>ส่งorder</button>
                 </div>
             </div>
         )
