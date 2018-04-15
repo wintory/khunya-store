@@ -38,7 +38,7 @@ export default class Form extends Component {
     addOrder = () => {
         if (this.state.name !== '' && this.state.option !== '' && this.state.vetg !== '') {
             this.setState({
-                order: [...this.state.order, { id: this.state.count, name: this.state.name, vetg: this.state.vetg, option: this.state.option, status: 'pending', time: new Date().toLocaleString() }],
+                order: [...this.state.order, { id: this.state.count, name: this.state.name, vetg: this.state.vetg, option: this.state.option, status: 'pending', time: new Date().toJSON() }],
                 count: Math.floor(Math.random() * 50000),
             })
         } else {

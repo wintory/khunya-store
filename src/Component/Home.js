@@ -8,61 +8,60 @@ export default class Home extends Component {
 
     state = {
         order: [],
-        loading: false
+        loading: false,
+        button: true,
+        topic: ''
     }
 
 
-    componentDidMount() {
-        this.fetchPendingData()
+    async componentDidMount() {
+        let fetch = await setTimeout(this.fetchPendingData(), 3000)
         this.setState({
             loading: false
         })
     }
 
     fetchPendingData = () => {
-        this.setState({
-            order: []
-        })
         const query = fire.database().ref('order');
         query.orderByChild("status").equalTo('pending').on("child_added", (data) => {
             let result = data.val()
             this.setState({
                 order: [...this.state.order, result],
-                loading: true
+                loading: true,
+                topic: 'pending'
             })
         })
     }
 
     fetchSuccessData = () => {
-        this.setState({
-            order: []
-        })
         const query = fire.database().ref('order');
         query.orderByChild("status").equalTo('success').on("child_added", (data) => {
             let result = data.val()
             this.setState({
                 order: [...this.state.order, result],
-                loading: true
+                button: false,
+                topic: 'success'
             })
         })
     }
 
     fetchCancelData = () => {
-        this.setState({
-            order: []
-        })
         const query = fire.database().ref('order');
         query.orderByChild("status").equalTo('cancel').on("child_added", (data) => {
             let result = data.val()
             this.setState({
                 order: [...this.state.order, result],
-                loading: true
+                button: false,
+                topic: 'cancel'
             })
         })
     }
 
 
     getList = (val) => {
+        this.setState({
+            order: []
+        })
         if (val === 'pending') {
             this.fetchPendingData()
         } else if (val === 'success') {
@@ -94,7 +93,7 @@ export default class Home extends Component {
                     </div>
                     <br />
                     <div className={this.state.loading === true ? '' : 'hidden'}>
-                        <OrderList order={this.state.order} chgSuccess={this.chgSuccess} chgCancel={this.chgCancel} />
+                        <OrderList button={this.state.button} order={this.state.order} topic={this.state.topic} chgSuccess={this.chgSuccess} chgCancel={this.chgCancel} />
                     </div>
                 </div>
                 <div className={this.state.loading === false ? 'sk-folding-cube' : 'hidden'}>
