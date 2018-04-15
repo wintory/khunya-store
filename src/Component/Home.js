@@ -6,19 +6,15 @@ import fire from '../firebase';
 export default class Home extends Component {
 
     state = {
-        order: ''
+        order: []
     }
 
 
     componentDidMount() {
-        console.log('aaa');
-
         const starCountRef = fire.database().ref('order');
         starCountRef.limitToLast(10).on("child_added", (data) => {
-            console.log('aaa');
-
             this.setState({
-                order: [this.state.order, data.val()]
+                order: [...this.state.order, data.val()]
             })
         })
     }
@@ -26,7 +22,7 @@ export default class Home extends Component {
 
 
     render() {
-        console.log('aaaaa');
+        console.log(this.state.order);
 
         return (
             <div>
@@ -36,11 +32,11 @@ export default class Home extends Component {
                 <div className="container">
                     <br />
                     <div className="row">
-                        <button type="button" className="btn btn-primary col-md-12" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" className="btn btn-primary col-md-2" data-toggle="modal" data-target="#exampleModal">
                             add order
-  </button>
+                    </button>
                         <br />
-                        <OrderList />
+                        <OrderList order={this.state.order} />
                     </div>
                 </div>
 

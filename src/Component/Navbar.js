@@ -33,10 +33,10 @@ export default class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className={this.state.activeHome == true ? 'nav-item active' : 'nav-item'}>
-                                <Link to="./home" className="nav-link" onClick={() => this.chgHomeActive()}>Home <span className="sr-only">(current)</span></Link>
+                                <a href="./home" className="nav-link" onClick={() => this.chgHomeActive()}>Home <span className="sr-only">(current)</span></a>
                             </li>
                             <li className={this.state.activeDashboard == true ? 'nav-item active' : 'nav-item'}>
-                                <Link to="./dashboard" className="nav-link" onClick={() => this.chgDashboardActive()}>Features</Link>
+                                <Link to="./dashboard" className="nav-link" onClick={() => this.chgDashboardActive()}>Dashboard</Link>
                             </li>
                         </ul>
                     </div>

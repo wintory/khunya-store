@@ -6,9 +6,10 @@ export default class Form extends Component {
 
     state = {
         vetg: 'true',
-        option: 'seafood',
+        option: 'ซีฟู๊ด',
         order: [],
-        count: 0
+        count: Math.floor(Math.random() * 5000),
+        name: ''
     }
 
     getVetg = val => {
@@ -26,21 +27,26 @@ export default class Form extends Component {
 
     addOrder = () => {
         this.setState({
-            order: [...this.state.order, { id: this.state.count, vetg: this.state.vetg, option: this.state.option, status: 'pending', time: new Date().toLocaleString() }],
+            order: [...this.state.order, { id: this.state.count, name: this.state.name, vetg: this.state.vetg, option: this.state.option, status: 'pending', time: new Date().toLocaleString() }],
             vetg: 'true',
-            option: 'seafood',
-            count: this.state.count + 1
+            option: 'ซีฟู๊ด',
+            count: Math.floor(Math.random() * 5000),
         })
-
     }
 
+    getName = thisname => {
+        this.setState({
+            name: thisname
+        })
+    }
 
 
     closeModal = () => {
         this.setState({
             vetg: 'true',
-            option: 'seafood',
-            order: []
+            option: 'ซีฟู๊ด',
+            order: [],
+            name: ''
         })
     }
 
@@ -50,21 +56,25 @@ export default class Form extends Component {
         })
     }
 
-    submitOrder = (e) => {
-        if (e !== null || e !== []) {
-            fire.database().ref('order').push(e);
+    submitOrder = () => {
+        if (this.state.order !== null && this.state.order !== []) {
+            this.state.order.map(dt => {
+                fire.database().ref('order').push(dt);
+            }
+            )
             console.log('add success');
             this.setState({
                 vetg: 'true',
-                option: 'seafood',
+                option: 'ซีฟู๊ด',
                 order: [],
-                count: 0
+                count: 0, name: ''
             })
         } else {
             alert('please input order')
         }
-
     }
+
+
 
 
 
@@ -74,14 +84,24 @@ export default class Form extends Component {
         return (
             <div>
                 <div className="form-check form-inline col-md-12">
+                    <div className="input-group col-md-12">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="basic-addon1">ชื่อลูกค้า</span>
+                        </div>
+                        <input type="text" className="form-control col-md-12" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" onChange={(e) => this.getName(e.target.value)} />
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                     <select className="form-control col-md-4 offset-1" id="salad" onChange={e => { this.getVetg(e.target.value) }} >
                         <option defaultValue value="true">เอาผัก</option>
                         <option value="false">ไม่เอาผัก</option>
                     </select>
                     <select className="form-control col-md-4 offset-1" id="salad" onChange={e => { this.getOption(e.target.value) }} >
-                        <option defaultValue value="seafood">ซีฟู้ด</option>
-                        <option value="salad">สลัด</option>
-                        <option value="oil" >น้ำมันงา</option>
+                        <option defaultValue value="ซีฟู้ด">ซีฟู้ด</option>
+                        <option value="สลัด">สลัด</option>
+                        <option value="น้ำมันงา" >น้ำมันงา</option>
                     </select>
                     <button className="btn btn-primary col-md-1 offset-1" onClick={() => { this.addOrder() }}>+</button>
                 </div>
@@ -99,7 +119,7 @@ export default class Form extends Component {
 
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => { this.closeModal() }}>Close</button>
-                    <button type="button" className="btn btn-primary" onClick={() => { this.submitOrder(this.state.order) }}>ส่งorder</button>
+                    <button type="button" className="btn btn-primary" onClick={() => { this.submitOrder() }}>ส่งorder</button>
                 </div>
             </div>
         )
