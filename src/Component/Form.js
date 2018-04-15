@@ -5,33 +5,45 @@ import fire from '../firebase';
 export default class Form extends Component {
 
     state = {
-        vetg: 'true',
-        option: 'ซีฟู๊ด',
+        vetg: '',
+        option: '',
         order: [],
         count: Math.floor(Math.random() * 5000),
         name: ''
     }
 
     getVetg = val => {
-        this.setState({
-            vetg: val
-        })
+        if (val !== "null" && val !== '') {
+            this.setState({
+                vetg: val
+            })
+        } else {
+            console.log('false');
+
+        }
     }
 
     getOption = val => {
-        this.setState({
-            option: val
-        })
+        if (val !== "null" && val !== '') {
+            this.setState({
+                option: val
+            })
+        } else {
+            console.log('false');
+
+        }
     }
 
 
     addOrder = () => {
-        this.setState({
-            order: [...this.state.order, { id: this.state.count, name: this.state.name, vetg: this.state.vetg, option: this.state.option, status: 'pending', time: new Date().toLocaleString() }],
-            vetg: 'true',
-            option: 'ซีฟู๊ด',
-            count: Math.floor(Math.random() * 5000),
-        })
+        if (this.state.name !== '' && this.state.option !== '' && this.state.vetg !== '') {
+            this.setState({
+                order: [...this.state.order, { id: this.state.count, name: this.state.name, vetg: this.state.vetg, option: this.state.option, status: 'pending', time: new Date().toLocaleString() }],
+                count: Math.floor(Math.random() * 50000),
+            })
+        } else {
+            console.log('error');
+        }
     }
 
     getName = thisname => {
@@ -42,12 +54,7 @@ export default class Form extends Component {
 
 
     closeModal = () => {
-        this.setState({
-            vetg: 'true',
-            option: 'ซีฟู๊ด',
-            order: [],
-            name: ''
-        })
+        window.location.reload();
     }
 
     delOrder = (key) => {
@@ -60,12 +67,10 @@ export default class Form extends Component {
         if (this.state.order !== null && this.state.order !== []) {
             this.state.order.map(dt => {
                 fire.database().ref('order').push(dt);
-            }
-            )
-            console.log('add success');
+            })
             this.setState({
-                vetg: 'true',
-                option: 'ซีฟู๊ด',
+                vetg: '',
+                option: '',
                 order: [],
                 count: 0, name: ''
             })
@@ -95,11 +100,13 @@ export default class Form extends Component {
                     <br />
                     <br />
                     <select className="form-control col-md-4 offset-1" id="salad" onChange={e => { this.getVetg(e.target.value) }} >
-                        <option defaultValue value="true">เอาผัก</option>
-                        <option value="false">ไม่เอาผัก</option>
+                        <option value="null">เลือกเครื่องเคียง</option>
+                        <option value="เอาผัก">เอาผัก</option>
+                        <option value="ไม่เอาผัก">ไม่เอาผัก</option>
                     </select>
                     <select className="form-control col-md-4 offset-1" id="salad" onChange={e => { this.getOption(e.target.value) }} >
-                        <option defaultValue value="ซีฟู้ด">ซีฟู้ด</option>
+                        <option value="null">เลือกน้ำสลัด</option>
+                        <option value="ซีฟู้ด">ซีฟู้ด</option>
                         <option value="สลัด">สลัด</option>
                         <option value="น้ำมันงา" >น้ำมันงา</option>
                     </select>
@@ -111,7 +118,7 @@ export default class Form extends Component {
 
                         {this.state.order.map((e) => {
                             return (
-                                <li key={e.id} className="list-group-item">{e.vetg === 'true' ? 'เอาผัก' : 'ไม่เอาผัก'} {e.option} <button className="btn btn-light red" onClick={() => this.delOrder(e.id)}>x</button></li>
+                                <li key={e.id} className="list-group-item">{e.vetg} {e.option} <button className="btn btn-light red" onClick={() => this.delOrder(e.id)}>x</button></li>
                             )
                         })}
                     </ul>

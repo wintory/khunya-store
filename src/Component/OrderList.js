@@ -10,8 +10,8 @@ export default class OrderList extends Component {
                 <br />
                 <div className="row">
                     <div className="col-md-6">
-                        {this.props.order.map(order => {
-                            return (<ListCard name={order.name} key={order.id} vetg={order.vetg === 'true' ? 'เอาผัก' : 'ไม่เอาผัก'} option={order.option} time={order.time} />)
+                        {this.props.order.map((order, i) => {
+                            return (<ListCard name={order.name} status={order.status} id={order.id} key={i} vetg={order.vetg === 'true' ? 'เอาผัก' : 'ไม่เอาผัก'} option={order.option} time={order.time} />)
                         })}
                     </div>
                 </div>
