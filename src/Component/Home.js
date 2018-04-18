@@ -58,6 +58,7 @@ export default class Home extends Component {
     }
 
 
+
     getList = (val) => {
         this.setState({
             order: []
@@ -74,6 +75,9 @@ export default class Home extends Component {
 
     render() {
 
+        console.log(this.state.order);
+
+
         return (
             <div>
                 <header >
@@ -81,6 +85,7 @@ export default class Home extends Component {
                 </header>
                 <div className="container">
                     <br />
+
                     <div className="form-inline">
                         <select className="form-control col-md-4 " id="salad" onChange={e => { this.getList(e.target.value) }} >
                             <option value="pending">pending order</option>

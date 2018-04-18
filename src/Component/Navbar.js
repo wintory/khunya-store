@@ -26,18 +26,18 @@ export default class Navbar extends Component {
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand">Khunya</a>
+                    <Link to="./" className="navbar-brand">Khunya</Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse " id="navbarNav">
                         <ul className="navbar-nav">
-                            <li className={this.state.activeHome === true ? 'nav-item active' : 'nav-item'}>
-                                <Link to="./home" className="nav-link" onClick={() => this.chgHomeActive()}>Home <span className="sr-only">(current)</span></Link>
-                            </li>
-                            <li className={this.state.activeDashboard === true ? 'nav-item active' : 'nav-item'}>
+                            {/* <li className={this.state.activeHome === true ? 'nav-item active' : 'nav-item'}>
+                                <Link to="./" className="nav-link" onClick={() => this.chgHomeActive()}>Home <span className="sr-only">(current)</span></Link>
+                            </li> */}
+                            {/* <li className={this.state.activeDashboard === true ? 'nav-item active' : 'nav-item'}>
                                 <Link to="./dashboard" className="nav-link" onClick={() => this.chgDashboardActive()}>Dashboard</Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </nav>
