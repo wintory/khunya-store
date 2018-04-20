@@ -27,6 +27,7 @@ export default class ListCard extends Component {
     render() {
         return (
             <div>
+                <p>จำนวน {this.props.topic} ทั้งหมด : {this.props.order.length} order</p>
                 {this.props.order.map((order, i) => {
                     return (
                         <div className={this.state.classname} role="alert" key={i}>

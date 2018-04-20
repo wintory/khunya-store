@@ -77,6 +77,7 @@ export default class Form extends Component {
         } else {
             alert('please input order')
         }
+        this.props.fetchPendingData()
     }
 
     render() {
@@ -119,7 +120,7 @@ export default class Form extends Component {
                 </div>
 
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => { this.closeModal() }}>Close</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal" >Close</button>
                     <button type="button" className="btn btn-primary" onClick={() => { this.submitOrder() }}>ส่งorder</button>
                 </div>
             </div>

@@ -129,7 +129,6 @@ export default class Home extends Component {
                     <br />
                     <div className={this.state.loading === true ? '' : 'hidden'}>
                         <OrderList button={this.state.button} order={this.state.order} topic={this.state.topic} changeSuccess={this.changeSuccess} changeCancel={this.changeCancel} />
-
                     </div>
                 </div>
                 <div className={this.state.loading === false ? 'sk-folding-cube' : 'hidden'}>
@@ -148,7 +147,7 @@ export default class Home extends Component {
                                 <h5 className="modal-title" id="exampleModalLabel">เมนูสั่งอาหาร</h5>
                             </div>
                             <div className="modal-body">
-                                <Form />
+                                <Form fetchPendingData={this.fetchPendingData} />
                             </div>
                         </div>
                     </div>
