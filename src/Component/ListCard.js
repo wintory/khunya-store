@@ -1,24 +1,10 @@
 import React, { Component } from 'react'
-import fire from '../firebase'
 
 export default class ListCard extends Component {
 
+
     state = {
-        classname: ''
-    }
-
-    changeSuccess = (id) => {
-        const query = fire.database().ref("order")
-        query.orderByChild("id").equalTo(id).on("child_added", (data) => {
-            data.ref.update({ status: 'success' })
-        });
-    }
-
-    changeCancel = (id) => {
-        const query = fire.database().ref("order")
-        query.orderByChild("id").equalTo(id).on("child_added", (data) => {
-            data.ref.update({ status: 'cancel' })
-        });
+        classname: '',
     }
 
     componentDidMount() {
@@ -40,18 +26,22 @@ export default class ListCard extends Component {
 
     render() {
         return (
+            <div>
+                {this.props.order.map((order, i) => {
+                    return (
+                        <div className={this.state.classname} role="alert" key={i}>
+                            <strong>ผู้สั่ง {order.name}</strong> <p>{order.vetg} {order.option}</p>
+                            <p>{order.time}</p>
+                            <button type="button" className={this.props.button === true ? "btn btn-light  col-md-6" : "hidden"} onClick={() => { this.props.changeSuccess(order.id) }}>
+                                <span style={{ color: 'green' }}>success</span>
+                            </button>
 
-            <div className={this.state.classname} role="alert">
-                <strong>ผู้สั่ง {this.props.name}</strong> <p>{this.props.vetg} {this.props.option} {this.props.status}</p>
-                <p>{this.props.time}</p>
-                <button type="button" className={this.props.button === true ? "btn btn-light  col-md-6" : "hidden"} onClick={() => { this.changeSuccess(this.props.id) }}>
-                    <span style={{ color: 'green' }}>success</span>
-                </button>
-
-                <button type="button" className={this.props.button === true ? "btn btn-light  col-md-6" : "hidden"} onClick={() => { this.changeCancel(this.props.id) }}>
-                    <span style={{ color: 'red' }}>cancel</span>
-                </button>
-
+                            <button type="button" className={this.props.button === true ? "btn btn-light  col-md-6" : "hidden"} onClick={() => { this.props.changeCancel(order.id) }}>
+                                <span style={{ color: 'red' }}>cancel</span>
+                            </button>
+                        </div>
+                    )
+                })}
             </div>
         )
     }

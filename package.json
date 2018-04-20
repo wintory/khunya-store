@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "blueimp-md5": "^2.10.0",
     "firebase": "^4.12.1",
     "firebase-tools": "^3.18.4",
     "moment": "^2.22.0",

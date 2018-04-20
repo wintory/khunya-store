@@ -88,7 +88,7 @@ export default class Form extends Component {
                         <div className="input-group-prepend">
                             <span className="input-group-text" id="basic-addon1">ชื่อลูกค้า</span>
                         </div>
-                        <input type="text" className="form-control col-md-12" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" onChange={(e) => this.getName(e.target.value)} />
+                        <input type="text" className="form-control col-md-12" placeholder="ชื่อลูกค้า" aria-label="Username" aria-describedby="basic-addon1" onChange={(e) => this.getName(e.target.value)} />
                     </div>
                     <br />
                     <br />
@@ -100,10 +100,9 @@ export default class Form extends Component {
                         <option value="ไม่เอาผัก">ไม่เอาผัก</option>
                     </select>
                     <select className="form-control col-md-4 offset-1" id="salad" onChange={e => { this.getOption(e.target.value) }} >
-                        <option value="null">เลือกน้ำสลัด</option>
+                        <option value="null">เลือกน้ำจิ้ม</option>
                         <option value="ซีฟู้ด">ซีฟู้ด</option>
-                        <option value="สลัด">สลัด</option>
-                        <option value="น้ำมันงา" >น้ำมันงา</option>
+                        <option value="ซอสเผ็ดเกาหลี" >ซอสเผ็ดเกาหลี</option>
                     </select>
                     <button className="btn btn-primary col-md-1 offset-1" onClick={() => { this.addOrder() }}>+</button>
                 </div>
